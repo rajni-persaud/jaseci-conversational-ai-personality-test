@@ -97,6 +97,7 @@ walker take_test{
     }
 
     user_response{
+        personality_types = file.load_json('../data/personality_types.json');
         user_personalities = file.load_json('../data/user_personalities.json');
         questions = file.load_json('../data/questions_dir.json');
         responses = file.load_json('../data/user_responses.json');
@@ -447,24 +448,6 @@ walker take_test{
         if (u_subcategories['Thinking'] > u_subcategories['Feeling']): mp_code = mp_code + 't'; else: mp_code = mp_code + 'f';
         if (u_subcategories['Judging'] > u_subcategories['Prospecting']): mp_code = mp_code + 'j'; else: mp_code = mp_code + 'p';
         if (u_subcategories['Assertive'] > u_subcategories['Turbulent']): mp_code = mp_code + '-a'; else: mp_code = mp_code + '-t';
-
-        personality_types = {};
-        personality_types['intj'] = ['Architect', 'Imaginative and strategic thinkers, with a plan for everything.'];
-        personality_types['intp'] = ['Logician', 'Innovative inventors with an unquenchable thirst for knowledge.'];
-        personality_types['entj'] = ['Commander', 'Bold, imaginative and strong-willed leaders, always finding a way - or making one.'];
-        personality_types['entp'] = ['Debater', 'Smart and curious thinkers who cannot resist an intellectual challenge.'];
-        personality_types['infj'] = ['Advocate', 'Quiet and mystical, yet very inspiring and tireless idealists.'];
-        personality_types['infp'] = ['Mediator', 'Poetic, kind and altruistic people, always eager to help a good cause.'];
-        personality_types['enfj'] = ['Protagonist', 'Charismatic and inspiring leaders, able to mesmerize their listeners.'];
-        personality_types['enfp'] = ['Campaigner', 'Enthusiastic, creative and sociable free spirits, who can always find a reason to smile.'];
-        personality_types['istj'] = ['Logistician', 'Practical and fact-minded individuals, whose reliability cannot be doubted.'];
-        personality_types['isfj'] = ['Defender', 'Very dedicated and warm protectors, always ready to defend their loved ones.'];
-        personality_types['estj'] = ['Executive', 'Excellent administrators, unsurpassed at managing things - or people.'];
-        personality_types['esfj'] = ['Consul', 'Extraordinarily caring, social and popular people, always eager to help.'];
-        personality_types['istp'] = ['Virtuoso', 'Bold and practical experimenters, masters of all kinds of tools.'];
-        personality_types['isfp'] = ['Adventurer', 'Flexible and charming artists, always ready to explore and experience something new.'];
-        personality_types['estp'] = ['Entrepreneur', 'Smart, energetic and very perceptive people, who truly enjoy living on the edge.'];
-        personality_types['esfp'] = ['Entertainer', 'Spontaneous, energetic and enthusiastic people – life is never boring around them.'];
 
         my_personality["user_id"] = u_id;
         my_personality["q_subcategories"] = Q_subcategories;
