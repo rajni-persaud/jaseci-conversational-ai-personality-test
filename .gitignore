@@ -7,8 +7,6 @@ user_pt.dot
 js.session
 main.jir
 test.js
-clean_data.jac
-.json
 questions_dir.json
 user_personalities.json
 user_responses.json
