@@ -82,6 +82,9 @@
     opacity: .7;
 }
 
+.icon-background {
+    color: rgb(235, 235, 235);
+}
 /* Chat bubbles */
 
 #userInput {

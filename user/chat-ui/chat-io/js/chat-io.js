@@ -32,8 +32,15 @@ document.getElementById('app-interact').parentNode.innerHTML = `
                             </div>
 
                             <div class="chat-bar-icons">
-                                <i id="chat-icon" style="color: #333;" class="fa fa-fw fa-send"
-                                    onclick="sendButton()"></i>
+                              <span class="fa-stack fa-1x">
+                                <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                <i id="chat-icon" class="fa fa-send fa-stack-1x" onclick="sendButton()"></i>
+                              </span>    
+                              
+                              <span class="fa-stack fa-1x">
+                                <i id="mic-bg" class="fa fa-circle fa-stack-2x icon-background"></i>
+                                <i id="mic-btn" class="fa fa-microphone fa-stack-1x" onclick="mic_click()"></i>
+                              </span>
                             </div>
                         </div>
 
@@ -50,23 +57,12 @@ document.getElementById('app-interact').parentNode.innerHTML = `
     </div>
 </div>`;
 
-
 var user_id = null;
 var user_index = null;
 
 var inputField = document.getElementById('chatio__inputField');
 
 var chat_messages = [];
-//  $.ajax({
-//     type: "GET",
-//     async: false,
-//     url: "../csr-bot/chat_data.json",
-//     data: {},
-//     success: function(chat_data){
-//         console.log(chat_data);
-//         chat_messages = chat_data; 
-//     },
-// });
 
 welcome_message = "Welcome to NeXusU's personality test. We'll try our best to make you feel comfortable. If you wish, share your name with us. Otherwise, just press enter :)";
 
@@ -82,6 +78,14 @@ if (chat_messages.length < 1){
 let conv = "";
 let new_message = "";
 update_messages();
+
+function readOutLoud(message){
+  speech = new SpeechSynthesisUtterance(message);
+  speech.volume = 1;
+  speech.rate = 1;
+  speech.pitch = 1;
+  window.speechSynthesis.speak(speech);
+}
 
 function sendButton(){
     var utterance = inputField.value;
@@ -100,6 +104,7 @@ function sendButton(){
 
         if(result.report[0].node.context['q_text']){
           chat_messages.push(["bot", result.report[0].node.context['q_text']]);
+          readOutLoud(result.report[0].node.context['q_text'])
         }
         if(result.report[0].user_id){
           user_id = result.report[0].user_id;
@@ -108,12 +113,6 @@ function sendButton(){
         if(result.report[0].node.name == "user_response"){
           sendButton();
         }
-
-        // std.out("Your personality type: ", my_personality["p_type"][0], "-", my_personality["p_type"][1]);
-        // for d=0 to d < usc.length by d+=1{
-        //     std.out(usc[d], " = ", uscv[d],"%");
-        // }
-        // std.out("Read more about your personality type here: ", p_link);
 
         update_messages();
 
@@ -136,7 +135,7 @@ function sendButton(){
           pt_link_message = pt_link_message.replace(detectURLs(pt_link_message), "<a href='"+detectURLs(pt_link_message)+"' target='_blank'>"+detectURLs(pt_link_message)+"</a>");
           chat_messages.push(["bot", pt_link_message]);
         }
-        // chat_messages.push(["bot", "Hmm.. I don't understand what you mean."]);
+
         update_messages();
       }
 
@@ -145,6 +144,59 @@ function sendButton(){
     });
     update_messages();
 }
+
+// ----------------- Microphone --------------------------
+var speechRecognition = window.webkitSpeechRecognition
+
+var recognition = new speechRecognition()
+
+var textbox = $("#chatio__inputField")
+
+var content = ''
+
+recognition.continuous = false
+
+stat = true
+
+recognition.onstart = function(){
+    console.log("Recording start")
+    document.getElementById("mic-btn").style.color = "#ffffff";
+    document.getElementById("mic-bg").style.color = "#5ca6fa";
+}
+
+recognition.onend = function(){
+    console.log("Recording end")
+    document.getElementById("mic-btn").style.color = "#000000";
+    document.getElementById("mic-bg").style.color = "rgb(235, 235, 235)";
+    sendButton()
+    content = ''
+    stat = true
+}
+
+recognition.onresult = function(event){
+    var current = event.resultIndex;
+    var transcript = event.results[current][0].transcript
+    content += transcript
+    textbox.val(content)
+}
+
+function mic_click(){
+  if(stat){
+      if(content.length){
+          content += ''
+      }
+  
+      recognition.continuous = false
+      recognition.start()
+      stat = false   
+  }
+  else{
+      recognition.stop()
+  }
+}
+
+// ----------------- Microphone --------------------------
+
 function update_messages() {
     conv = "";
     for (let i = 0; i < chat_messages.length; i++) {
