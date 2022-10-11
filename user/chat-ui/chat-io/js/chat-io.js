@@ -11,7 +11,10 @@ document.getElementById('app-interact').parentNode.innerHTML = `
         <button id="chat-button" type="button" class="collapsible active">Chat with us!
             <i id="chat-icon" style="color: #fff;" class="fa fa-fw fa-comments-o"></i>
         </button>
-
+        <div class="w3-light-grey">
+         <div class="w3-grey" style="color: #5ca6fa; height:10px;width:0%"></div>
+        </div>
+        <div id="prg_score" class="prg-per"></div>
         <div class="content">
             <div class="full-chat-block">
                 <!-- Message Container -->
@@ -22,7 +25,9 @@ document.getElementById('app-interact').parentNode.innerHTML = `
                             <h5 id="chat-timestamp"></h5>
                             <!-- <p id="botStarterMessage" class="botText"><span>Loading...</span></p> -->
                         </div>
-
+                        <div id="pt_chart" class="container" style="display:none">
+                          <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+                        </div>
                         <!-- User input box -->
                         <div class="chat-bar-input-block">
                             <div id="userInput">
@@ -59,6 +64,9 @@ document.getElementById('app-interact').parentNode.innerHTML = `
 
 var user_id = null;
 var user_index = null;
+
+var total_q = 0;
+var current_q = 0;
 
 var inputField = document.getElementById('chatio__inputField');
 
@@ -104,7 +112,14 @@ function sendButton(){
 
         if(result.report[0].node.context['q_text']){
           chat_messages.push(["bot", result.report[0].node.context['q_text']]);
-          readOutLoud(result.report[0].node.context['q_text'])
+          readOutLoud(result.report[0].node.context['q_text']);
+          current_q = result.report[0].my_response.num_response;
+          total_q = result.report[0].my_response.num_question;
+          progress = (current_q/total_q)*100;
+          if(progress > 0){
+            document.getElementsByClassName("w3-grey")[0].style.width = progress+"%";
+            document.getElementById("prg_score").innerHTML = progress.toFixed(2)+"%";
+          }
         }
         if(result.report[0].user_id){
           user_id = result.report[0].user_id;
@@ -112,9 +127,15 @@ function sendButton(){
         }
         if(result.report[0].node.name == "user_response"){
           sendButton();
+          document.getElementsByClassName("w3-grey")[0].style.width = "100%";
+          document.getElementById("prg_score").innerHTML = "100%";
         }
 
         update_messages();
+
+        if(result.report[0].node.name == "user_response"){
+          document.getElementById('pt_chart').style.display = "block";
+        }
 
         //show the response message in the chat
       } 
@@ -125,8 +146,10 @@ function sendButton(){
 
           let my_personality_scores = result.report[0].my_personality["u_subcategories"];
           personality_scores_msg = ``;
+          var barColors = [];
           for (const [key, value] of Object.entries(my_personality_scores)) {
             personality_scores_msg = personality_scores_msg + key + ": " + value + "%" + "<br>";
+            barColors.push("blue");
           }
           chat_messages.push(["bot", personality_scores_msg]);
 
@@ -134,6 +157,36 @@ function sendButton(){
           pt_link_message = "Read more about your personality type here: "+pt_link;
           pt_link_message = pt_link_message.replace(detectURLs(pt_link_message), "<a href='"+detectURLs(pt_link_message)+"' target='_blank'>"+detectURLs(pt_link_message)+"</a>");
           chat_messages.push(["bot", pt_link_message]);
+
+          var xValues = Object.keys(my_personality_scores);
+          var yValues = Object.values(my_personality_scores);
+
+          new Chart("myChart", {
+            type: "bar",
+            data: {
+              labels: xValues,
+              datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+              }]
+            },
+            options: {
+              legend: {display: false},
+              title: {
+                display: true,
+                text: "Your personality traits"
+              }, 
+              barValueSpacing: 20,
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    min: 0,
+                    max: 100
+                  }
+                }]
+              }
+            }
+          });
         }
 
         update_messages();

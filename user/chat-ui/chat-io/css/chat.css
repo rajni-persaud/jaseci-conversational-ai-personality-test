@@ -10,7 +10,7 @@
     color: white;
     cursor: pointer;
     padding: 18px;
-    width: 350px;
+    width: 850px;
     text-align: left;
     outline: none;
     font-size: 18px;
@@ -28,7 +28,7 @@
 }
 
 .full-chat-block {
-    width: 350px;
+    width: 850px;
     background: white;
     text-align: center;
     overflow: auto;
@@ -67,6 +67,10 @@
     background-color: rgb(235, 235, 235);
     border-radius: 10px 10px 0px 0px;
     padding: 10px 0px 10px 10px;
+    position: fixed;
+    bottom: 0;
+    right: 50px;
+    width: 850px;
 }
 
 .chat-bar-icons {
@@ -120,8 +124,10 @@
     padding: 10px;
     border-radius: 8px;
     border-bottom-right-radius: 2px;
-    max-width: 80%;
+    max-width: 60%;
     margin-right: 10px;
+    margin-left: 10px;
+    word-wrap: break-word;
     animation: floatup .5s forwards
 }
 
@@ -145,6 +151,29 @@
     animation: floatup .5s forwards
 }
 
+#chatbox, #pt_chart{
+    padding-bottom: 50px;
+}
+
+.w3-grey{
+    color: #5ca6fa;
+}
+
+.w3-light-grey{
+    width: 850px;
+    position:fixed; 
+    z-index:5;
+}
+
+.prg-per{
+    position:fixed; 
+    text-align: right;
+    margin-top: 10px;
+    width: 850px;
+    background-color: #ffffff;
+    z-index: 100;
+}
+
 @keyframes floatup {
     from {
         transform: translateY(14px);
@@ -156,7 +185,7 @@
     }
 }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width:470px) {
     .full-chat-block {
         width: 100%;
         border-radius: 0px;
@@ -172,5 +201,18 @@
         border: 0px;
         border-top: 3px solid white;
         border-radius: 0px;
+    }
+    .chat-bar-input-block {
+        right: inherit;
+        width: inherit;
+    }
+
+    .w3-light-grey{
+        width: 470px;
+        position:fixed; 
+        z-index:5;
+    }
+    .prg-per{
+        width: 450px;
     }
 }
