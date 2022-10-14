@@ -93,6 +93,11 @@ function readOutLoud(message){
   speech.rate = 1;
   speech.pitch = 1;
   window.speechSynthesis.speak(speech);
+  speech.onend = (event) => {
+    // console.log(`Utterance has finished being spoken after ${event.elapsedTime} seconds.`);
+    mic_click();
+  }
+  
 }
 
 function sendButton(){
