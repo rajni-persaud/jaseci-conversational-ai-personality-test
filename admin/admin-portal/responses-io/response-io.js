@@ -99,8 +99,136 @@ else{
         </div>
 
       </div>
-      <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
+      <div class="row">
+          <div class="col-sm">
+            <canvas id="mind_chart" style="width:25%;max-width:400px"></canvas>
+          </div>
+          <div class="col-sm">
+            <canvas id="energy_chart" style="width:25%;max-width:400px"></canvas>
+          </div>
+          <div class="col-sm">
+            <canvas id="nature_chart" style="width:25%;max-width:400px"></canvas>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm">
+            <canvas id="tactics_chart" style="width:25%;max-width:400px"></canvas>
+          </div>
+          <div class="col-sm">
+            <canvas id="identity_chart" style="width:25%;max-width:400px"></canvas>
+          </div>
+        </div>
     </div>
     `;
+
+    sub_categories = u_personality['u_subcategories'];
+
+    var mind_xValues = ["Introverted", "Extraverted"]
+    var mind_yValues = [sub_categories[mind_xValues[0]], sub_categories[mind_xValues[1]]];
+    var barColors = ["#45b6fe", "#daf0ff"];
     
+    new Chart("mind_chart", {
+      type: "doughnut",
+      data: {
+        labels: mind_xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: mind_yValues
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: "Mind"
+        }
+      }
+    });
+
+    var energy_xValues = ["Intuitive", "Observant"]
+    var energy_yValues = [sub_categories[energy_xValues[0]], sub_categories[energy_xValues[1]]];
+    var barColors = ["#45b6fe", "#daf0ff"];
+    
+    new Chart("energy_chart", {
+      type: "doughnut",
+      data: {
+        labels: energy_xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: energy_yValues
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: "Energy"
+        }
+      }
+    });
+
+    var nature_xValues = ["Thinking", "Feeling"]
+    var nature_yValues = [sub_categories[nature_xValues[0]], sub_categories[nature_xValues[1]]];
+    var barColors = ["#45b6fe", "#daf0ff"];
+    
+    new Chart("nature_chart", {
+      type: "doughnut",
+      data: {
+        labels: nature_xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: nature_yValues
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: "Nature"
+        }
+      }
+    });
+
+    var tactics_xValues = ["Judging", "Prospecting"]
+    var tactics_yValues = [sub_categories[tactics_xValues[0]], sub_categories[tactics_xValues[1]]];
+    var barColors = ["#45b6fe", "#daf0ff"];
+    
+    new Chart("tactics_chart", {
+      type: "doughnut",
+      data: {
+        labels: tactics_xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: tactics_yValues
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: "Tactics"
+        }
+      }
+    });
+
+    var identity_xValues = ["Assertive", "Turbulent"]
+    var identity_yValues = [sub_categories[identity_xValues[0]], sub_categories[identity_xValues[1]]];
+    var barColors = ["#45b6fe", "#daf0ff"];
+    
+    new Chart("identity_chart", {
+      type: "doughnut",
+      data: {
+        labels: identity_xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: identity_yValues
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: "Identity"
+        }
+      }
+    });
+
 }
+

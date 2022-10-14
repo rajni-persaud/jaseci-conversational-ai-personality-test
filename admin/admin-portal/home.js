@@ -47,11 +47,32 @@ for (i=0; i<questions.length; i++){
 }
 qc_num = [qc_count[question_categories[0]], qc_count[question_categories[1]], qc_count[question_categories[2]], qc_count[question_categories[3]], qc_count[question_categories[4]]];
 
+pt_types = [];
+pt_types_num = {};
+for (i=0; i<user_pts.length; i++){
+  if (!pt_types.includes(user_pts[i]["p_type"][0])){
+    pt_types.push(user_pts[i]["p_type"][0]);
+    pt_types_num[user_pts[i]["p_type"][0]] = 0;
+  }
+}
+
+for (i=0; i<user_pts.length; i++){
+  pt_types_num[user_pts[i]["p_type"][0]] = pt_types_num[user_pts[i]["p_type"][0]] + 1;
+}
+
 document.getElementById('app-interact').parentNode.innerHTML = `
     <div id="home${sentinel_id}">
       <!-- NAVBAR--><nav class="navbar navbar-expand-lg navbar-dark"></nav><!-- NAVBAR-->
       <br/>
-      <canvas id="questions_by_category" style="width:100%;max-width:600px"></canvas>
+
+      <div class="row">
+          <div class="col-md-4">
+            <canvas id="questions_by_category" style="width:50%;max-width:400px"></canvas>
+          </div>
+          <div class="col-md-8">
+            <canvas id="users_pt" style="width:50%;max-width:400px"></canvas>
+          </div>
+      </div>
     </div>
     `;
 
@@ -85,8 +106,8 @@ document.getElementById('app-interact').parentNode.innerHTML = `
       }
     });
 
-    var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
-    var yValues = [55, 49, 44, 24, 15];
+    var xValues = Object.keys(pt_types_num);
+    var yValues = Object.values(pt_types_num);
     var barColors = ["#45b6fe", "#6ac5fe", "#8fd3fe", "#b5e2ff", "#daf0ff"];
     
     new Chart("users_pt", {
