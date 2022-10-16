@@ -24,6 +24,7 @@ walker take_test{
         responses = file.load_json('../data/user_responses.json');
         if responses.length > 0: u_id = responses[-1]["user_id"]+1; else: u_id = 1; //finding the next id
         my_response["user_id"] = u_id;
+        my_response["date_time"] = std.time_now().str::replace('T', ' ').str::split('.')[0];
         my_response["user_name"] = u_name;
         my_response["user_email"] = u_email;
         my_response["num_question"] = questions.length;

@@ -62,16 +62,18 @@ for (i=0; i<user_pts.length; i++){
 
 document.getElementById('app-interact').parentNode.innerHTML = `
     <div id="home${sentinel_id}">
-      <!-- NAVBAR--><nav class="navbar navbar-expand-lg navbar-dark"></nav><!-- NAVBAR-->
+      <!-- NAVBAR--><nav class="navbar navbar-expand-lg navbar-dark" style="position:sticky;"></nav><!-- NAVBAR-->
       <br/>
 
-      <div class="row">
-          <div class="col-md-4">
-            <canvas id="questions_by_category" style="width:50%;max-width:400px"></canvas>
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <canvas id="questions_by_category" style="max-width:350px;"></canvas>
           </div>
-          <div class="col-md-8">
-            <canvas id="users_pt" style="width:50%;max-width:400px"></canvas>
+          <div class="col">
+            <canvas id="users_pt" style="max-width:300px;"></canvas>
           </div>
+        </div>
       </div>
     </div>
     `;
@@ -108,7 +110,7 @@ document.getElementById('app-interact').parentNode.innerHTML = `
 
     var xValues = Object.keys(pt_types_num);
     var yValues = Object.values(pt_types_num);
-    var barColors = ["#45b6fe", "#6ac5fe", "#8fd3fe", "#b5e2ff", "#daf0ff"];
+    var barColors = ['#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#808080'];
     
     new Chart("users_pt", {
       type: "pie",
@@ -123,6 +125,15 @@ document.getElementById('app-interact').parentNode.innerHTML = `
         title: {
           display: true,
           text: "Pie Chart showing users' personality types"
+        },
+
+        responsive: true,
+        legend: {
+            display: true,
+            position: "bottom",
+            align: "start"
         }
+        
       }
+    
     });

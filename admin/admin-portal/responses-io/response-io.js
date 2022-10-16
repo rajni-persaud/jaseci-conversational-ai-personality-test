@@ -79,47 +79,32 @@ else{
       <!-- NAVBAR--><nav class="navbar navbar-expand-lg navbar-dark"></nav><!-- NAVBAR-->
       <br/>
       <div class="container">
-
-        <div class="row">
-          <div class="col-sm">
-            Personality Type:
-          </div>
-          <div class="col-lg">
-          ${u_personality['p_type'][0]}
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm">
-            Personality Code:
-          </div>
-          <div class="col-lg">
-          <a href="${pt_link}" target="_blank">${u_personality['p_code']}</a>
-          </div>
-        </div>
-
+        Personality Type: <a href="${pt_link}" target="_blank">${u_personality['p_type'][0]} / ${u_personality['p_code']}</a>
       </div>
 
-      <div class="row">
-          <div class="col-sm">
-            <canvas id="mind_chart" style="width:25%;max-width:400px"></canvas>
-          </div>
-          <div class="col-sm">
-            <canvas id="energy_chart" style="width:25%;max-width:400px"></canvas>
-          </div>
-          <div class="col-sm">
-            <canvas id="nature_chart" style="width:25%;max-width:400px"></canvas>
-          </div>
-        </div>
-
+      <div class="container">
+        <div style="text-align: center;">Summary of respondent's personality traits</div>
         <div class="row">
-          <div class="col-sm">
-            <canvas id="tactics_chart" style="width:25%;max-width:400px"></canvas>
+          <div class="col">
+            <canvas id="mind_chart" style="max-width:250px;"></canvas>
           </div>
-          <div class="col-sm">
-            <canvas id="identity_chart" style="width:25%;max-width:400px"></canvas>
+          <div class="col">
+            <canvas id="energy_chart" style="max-width:250px;"></canvas>
+          </div>
+          <div class="col">
+            <canvas id="nature_chart" style="max-width:250px;"></canvas>
           </div>
         </div>
+        <div class="row">
+          <div class="col">
+            <canvas id="tactics_chart" style="max-width:250px;"></canvas>
+          </div>
+          <div class="col">
+            <canvas id="identity_chart" style="max-width:250px;"></canvas>
+          </div>
+        </div>
+      </div>
+
     </div>
     `;
 

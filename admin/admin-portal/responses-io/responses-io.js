@@ -41,6 +41,7 @@ if (responses.length > 0){
     if(pt_user_index > -1){
       table_body = table_body +
       `<tr>
+      <td>${responses[i]['date_time']}</td>
       <td>${responses[i]['user_name']}</td>
       <td>${responses[i]['num_response']}/${responses[i]['num_question']}</td>
       <td>${user_pts[pt_user_index]['p_type'][0]}</td>
@@ -50,6 +51,7 @@ if (responses.length > 0){
     else{
       table_body = table_body +
       `<tr>
+      <td>${responses[i]['date_time']}</td>
       <td>${responses[i]['user_name']}</td>
       <td>${responses[i]['num_response']}/${responses[i]['num_question']}</td>
       <td>N/A</td>
@@ -61,6 +63,7 @@ if (responses.length > 0){
   `<table class="table table-striped table-fluid" id="myResponsesTable">
     <thead>
       <tr>
+        <th scope="col">Date/Time</th>
         <th scope="col">Name</th>
         <th scope="col">Responses</th>
         <th scope="col">Personality Type</th>
