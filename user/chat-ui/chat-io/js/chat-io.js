@@ -8,11 +8,10 @@ var last_jid = null;
 document.getElementById('app-interact').parentNode.innerHTML = `
 <div id="chatio__${sentinel_id}">
   <div class="chat-bar-collapsible">
-        <button id="chat-button" type="button" class="collapsible active">Chat with us!
-            <i id="chat-icon" style="color: #fff;" class="fa fa-fw fa-comments-o"></i>
+        <button id="chat-button" type="button" class="collapsible active" style="padding-bottom:5px;"><img src="../../assets/nxu-logo.png" width="45" alt="">Personality Test
         </button>
         <div class="w3-light-grey">
-         <div class="w3-grey" style="color: #5ca6fa; height:10px;width:0%"></div>
+         <div class="w3-grey" style="color: #1a58a5; height:10px;width:0%"></div>
         </div>
         <div id="prg_score" class="prg-per"></div>
         <div class="content">
@@ -27,6 +26,7 @@ document.getElementById('app-interact').parentNode.innerHTML = `
                         </div>
                         <div id="pt_chart" class="container" style="display:none">
                           <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+                          <canvas id="ctx" width="300px"></canvas>
                         </div>
                         <!-- User input box -->
                         <div class="chat-bar-input-block">
@@ -192,6 +192,74 @@ function sendButton(){
               }
             }
           });
+
+
+          var chart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+               labels: ["Mind", "Energy", "Nature", "Tactics", "Identity"],
+               datasets: [{
+                  label: 'Introverted',
+                  data: [yValues[0], 0, 0, 0, 0],
+                  backgroundColor: '#8B0000'
+               }, {
+                  label: 'Extraverted',
+                  data: [yValues[1], 0, 0, 0, 0],
+                  backgroundColor: '#FF0000'
+               }, {
+                  label: 'Observant',
+                  data: [0, yValues[2], 0, 0, 0],
+                  backgroundColor: '#8B4000'
+               }, {
+                  label: 'Intuitive',
+                  data: [0, yValues[3], 0, 0, 0],
+                  backgroundColor: '#FFA500'
+               }, {
+                  label: 'Thinking',
+                  data: [0, 0, yValues[4], 0, 0],
+                  backgroundColor: '#FFD700'
+               }, {
+                  label: 'Feeling',
+                  data: [0, 0, yValues[5], 0, 0],
+                  backgroundColor: '#FFFF00'
+               }, {
+                  label: 'Judging',
+                  data: [0, 0, 0, yValues[6], 0],
+                  backgroundColor: '#008000'
+               }, {
+                  label: 'Prospecting',
+                  data: [0, 0, 0, yValues[7], 0],
+                  backgroundColor: '#7CFC00'
+               }, {
+                  label: 'Assertive',
+                  data: [0, 0, 0, 0, yValues[8]],
+                  backgroundColor: '#00008B'
+               }, {
+                  label: 'Turbulent',
+                  data: [0, 0, 0, 0, yValues[9]],
+                  backgroundColor: '#0000FF'
+               }]
+            },
+            options: {
+               responsive: true,
+              title: {
+                display: false,
+                text: "Stacked bar chart showing respondents' personality traits"
+              },
+               legend: {
+                  position: 'right'
+               },
+               scales: {
+                  xAxes: [{
+                     stacked: true
+                  }],
+                  yAxes: [{
+                     stacked: true
+                  }]
+               }
+            }
+          });
+
         }
 
         update_messages();
@@ -219,7 +287,7 @@ stat = true
 recognition.onstart = function(){
     console.log("Recording start")
     document.getElementById("mic-btn").style.color = "#ffffff";
-    document.getElementById("mic-bg").style.color = "#5ca6fa";
+    document.getElementById("mic-bg").style.color = "#1a58a5";
 }
 
 recognition.onend = function(){
