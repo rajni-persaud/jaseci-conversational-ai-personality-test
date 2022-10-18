@@ -75,7 +75,7 @@ if (responses.length > 0){
   document.getElementById('app-interact').parentNode.innerHTML = `
   <div id="responses_io${sentinel_id}">
     <!-- NAVBAR--><nav class="navbar navbar-expand-lg navbar-dark"></nav><!-- NAVBAR-->   
-    <div id="response">
+    <div id="response" style="padding-top:7%;">
         ${responses_table}
     </div>   
   </div>

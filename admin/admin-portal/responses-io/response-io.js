@@ -78,7 +78,7 @@ else{
     <div id="response_io${sentinel_id}">
       <!-- NAVBAR--><nav class="navbar navbar-expand-lg navbar-dark"></nav><!-- NAVBAR-->
       <br/>
-      <div class="container">
+      <div class="container" style="padding-top:5%;">
         Personality Type: <a href="${pt_link}" target="_blank">${u_personality['p_type'][0]} / ${u_personality['p_code']}</a>
       </div>
 

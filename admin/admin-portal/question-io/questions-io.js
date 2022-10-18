@@ -76,7 +76,7 @@ if (questions.length > 0){
   document.getElementById('app-interact').parentNode.innerHTML = `
   <div id="questions_io${sentinel_id}">
     <!-- NAVBAR--><nav class="navbar navbar-expand-lg navbar-dark"></nav><!-- NAVBAR-->   
-    <div id="q">
+    <div id="q" style="padding-top:6%;">
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createQuestion" style="float:right; margin: 10px;">Create Question</button>
         ${questions_table}
     </div>   

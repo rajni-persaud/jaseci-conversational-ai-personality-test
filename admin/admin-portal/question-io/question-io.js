@@ -44,7 +44,7 @@ if(q_index >= 0){
   <div id="question_io${sentinel_id}">
     <!-- NAVBAR--><nav class="navbar navbar-expand-lg navbar-dark"></nav><!-- NAVBAR-->
     <br/>
-    <div class="container">
+    <div class="container" style="padding-top:5%;">
       <div class="card">
         <div class="card-header">Edit Question</div>  
         <div class="card-body">
