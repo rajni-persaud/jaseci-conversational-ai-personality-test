@@ -24,9 +24,8 @@ document.getElementById('app-interact').parentNode.innerHTML = `
                             <h5 id="chat-timestamp"></h5>
                             <!-- <p id="botStarterMessage" class="botText"><span>Loading...</span></p> -->
                         </div>
-                        <div id="pt_chart" class="container" style="display:none">
-                          <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-                          <canvas id="ctx" width="300px"></canvas>
+                        <div id="pt_chart" style="display:none; width: 540px; height: 320px;">
+                          <canvas id="ctx" style = "max-width:520px; max-height:300px; margin-left:2%;"></canvas>
                         </div>
                         <!-- User input box -->
                         <div class="chat-bar-input-block">
@@ -147,51 +146,54 @@ function sendButton(){
       else {
         // last_jid = null;
         if(user_id && result.report[0].my_personality){
-          chat_messages.push(["bot", "Your personality type: "+result.report[0].my_personality["p_type"][0]+" - "+result.report[0].my_personality["p_type"][1]]);
+          // chat_messages.push(["bot", "Your personality type: "+result.report[0].my_personality["p_type"][0]+" - "+result.report[0].my_personality["p_type"][1]]);
 
           let my_personality_scores = result.report[0].my_personality["u_subcategories"];
-          personality_scores_msg = ``;
-          var barColors = [];
-          for (const [key, value] of Object.entries(my_personality_scores)) {
-            personality_scores_msg = personality_scores_msg + key + ": " + value + "%" + "<br>";
-            barColors.push("blue");
-          }
-          chat_messages.push(["bot", personality_scores_msg]);
+          // personality_scores_msg = ``;
+          // var barColors = [];
+          // for (const [key, value] of Object.entries(my_personality_scores)) {
+          //   personality_scores_msg = personality_scores_msg + key + ": " + value + "%" + "<br>";
+          //   barColors.push("blue");
+          // }
+          // chat_messages.push(["bot", personality_scores_msg]);
 
           pt_link = "https://www.16personalities.com/"+result.report[0].my_personality["p_code"].slice(0, -2)+"-personality";
-          pt_link_message = "Read more about your personality type here: "+pt_link;
-          pt_link_message = pt_link_message.replace(detectURLs(pt_link_message), "<a href='"+detectURLs(pt_link_message)+"' target='_blank'>"+detectURLs(pt_link_message)+"</a>");
-          chat_messages.push(["bot", pt_link_message]);
+          // pt_link_message = "Read more about your personality type here: "+pt_link;
+          // pt_link_message = pt_link_message.replace(detectURLs(pt_link_message), "<a href='"+detectURLs(pt_link_message)+"' target='_blank'>"+detectURLs(pt_link_message)+"</a>");
+          // chat_messages.push(["bot", pt_link_message]);
+
+          chat_messages.push(["bot", "Your personality type is "+result.report[0].my_personality["p_type"][0]+"; "+result.report[0].my_personality["p_type"][1].toLowerCase()+" The graph below shows a summary of your personality traits. You can learn more about the <a href='"+pt_link+"' target='_blank'>"+result.report[0].my_personality["p_type"][0]+"</a> personality type here. Thank you."]);
+          
 
           var xValues = Object.keys(my_personality_scores);
           var yValues = Object.values(my_personality_scores);
 
-          new Chart("myChart", {
-            type: "bar",
-            data: {
-              labels: xValues,
-              datasets: [{
-                backgroundColor: barColors,
-                data: yValues
-              }]
-            },
-            options: {
-              legend: {display: false},
-              title: {
-                display: true,
-                text: "Your personality traits"
-              }, 
-              barValueSpacing: 20,
-              scales: {
-                yAxes: [{
-                  ticks: {
-                    min: 0,
-                    max: 100
-                  }
-                }]
-              }
-            }
-          });
+          // new Chart("myChart", {
+          //   type: "bar",
+          //   data: {
+          //     labels: xValues,
+          //     datasets: [{
+          //       backgroundColor: barColors,
+          //       data: yValues
+          //     }]
+          //   },
+          //   options: {
+          //     legend: {display: false},
+          //     title: {
+          //       display: true,
+          //       text: "Your personality traits"
+          //     }, 
+          //     barValueSpacing: 20,
+          //     scales: {
+          //       yAxes: [{
+          //         ticks: {
+          //           min: 0,
+          //           max: 100
+          //         }
+          //       }]
+          //     }
+          //   }
+          // });
 
 
           var chart = new Chart(ctx, {
@@ -244,7 +246,7 @@ function sendButton(){
                responsive: true,
               title: {
                 display: false,
-                text: "Stacked bar chart showing respondents' personality traits"
+                text: "Stacked bar chart showing your personality traits"
               },
                legend: {
                   position: 'right'
