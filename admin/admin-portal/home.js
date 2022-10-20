@@ -120,42 +120,43 @@ document.getElementById('app-interact').parentNode.innerHTML = `
       <!-- NAVBAR--><nav class="navbar navbar-expand-lg navbar-dark"></nav><!-- NAVBAR-->
       <br/>
 
-      <div class="container" style="margin-top:5%;">
-        <div class="row">
-          <div class="col">
-            <div class="card" style="max-width: 18rem; max-height: 200px; background-color:#0C99BA; color: white;">
-              <div class="card-body">
-                <h6 class="card-title">Number of Questions</h5>
-                <p class="card-text">${questions.length}<i class="fa fa-question-circle fa-2x" style="color: white; position:absolute; left: 80%; z-index: 5"></i></p>
-              </div>
+      <div class="container" style="margin-top:5%; max-width:100%;">
+      <div class="row">
+
+        <div class="col">
+          <div class="card" style="max-height: 200px; background-color:#0C99BA; color: white;">
+            <div class="card-body">
+              <h6 class="card-title">Number of Questions</h5>
+              <p class="card-text">${questions.length}<i class="fa fa-question-circle fa-2x" style="color: white; position:absolute; left: 80%; z-index: 5"></i></p>
             </div>
           </div>
-
-          <div class="col">
-            <div class="card" style="max-width: 18rem; max-height: 200px; background-color:#21A5B7; color: white;">
-              <div class="card-body">
-                <h6 class="card-title">Number of Responses</h5>
-                <p class="card-text">${responses.length}<i class="fa fa-comments fa-2x" style="color: white; position:absolute; left: 80%; z-index: 5"></i></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card" style="max-width: 18rem; max-height: 200px; background-color:#30BFBF; color: white;">
-              <div class="card-body">
-                <h6 class="card-title">Most Common Personality Type</h5>
-                <p class="card-text">${common_pt[0]}<i class="fa fa-user fa-2x" style="color: white; position:absolute; left: 80%; z-index: 5"></i></p>
-              </div>
-            </div>
-          </div>
-
         </div>
-      </div>
 
-      <div class="container" style="padding-top:10px;">
+        <div class="col">
+          <div class="card" style="max-height: 200px; background-color:#21A5B7; color: white;">
+            <div class="card-body">
+              <h6 class="card-title">Number of Responses</h5>
+              <p class="card-text">${responses.length}<i class="fa fa-comments fa-2x" style="color: white; position:absolute; left: 80%; z-index: 5"></i></p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col">
+          <div class="card" style="max-height: 200px; background-color:#30BFBF; color: white;">
+            <div class="card-body">
+              <h6 class="card-title">Most Common Personality Type</h5>
+              <p class="card-text">${common_pt[0]}<i class="fa fa-user fa-2x" style="color: white; position:absolute; left: 80%; z-index: 5"></i></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      </div>
+          
+      <div class="container" style="padding-top:10px; max-width:100%;">
         <div class="row">
-          <div class="col-5">
-            <div class="card bg-light">
+          <div class="col-4">
+            <div class="card bg-light" style="max-width:100%;">
               <div class="card-body">
                 <h6 class="card-title">Number of questions per category</h5>
                   <canvas id="questions_by_category" style="max-width:400px;"></canvas>
@@ -163,28 +164,29 @@ document.getElementById('app-interact').parentNode.innerHTML = `
             </div>
           </div>
 
-          <div class="col-5">
+          <div class="col-8">
             <div class="card bg-light">
               <div class="card-body">
-                <h6 class="card-title">Pie Chart showing users' personality types</h5>
-                <canvas id="users_pt" style="max-width:350px;"></canvas>
+                <h6 class="card-title">Stacked bar chart showing respondents' personality traits</h5>
+                <canvas id="ctx" width="250" height="60"></canvas>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col">
-            <div class="card bg-light">
+        <div class="row" style="padding-top:1%;">
+
+          <div class="col-5">
+            <div class="card bg-light" style="max-width:100%;">
               <div class="card-body">
-                <h6 class="card-title">Stacked bar chart showing respondents' personality traits</h5>
-                <canvas id="ctx" width="500"></canvas>
+                <h6 class="card-title">Pie Chart showing users' personality types</h5>
+                <canvas id="users_pt" style="max-width:400px;"></canvas>
               </div>
             </div>
           </div>
 
           <div class="col">
-            <canvas id="users_pt" style="max-width:300px;"></canvas>
+            <canvas id="users_pt" style="max-width:300px; max-height:100px;"></canvas>
           </div>
         </div>
 
@@ -248,7 +250,7 @@ document.getElementById('app-interact').parentNode.innerHTML = `
         responsive: true,
         legend: {
             display: true,
-            position: "top"
+            position: "bottom"
         }
         
       }
@@ -261,43 +263,43 @@ document.getElementById('app-interact').parentNode.innerHTML = `
          labels: ["Mind", "Energy", "Nature", "Tactics", "Identity"],
          datasets: [{
             label: 'Introverted',
-            data: [count_traits[0], 0, 0, 0, 0],
+            data: [(count_traits[0]/user_pts.length)*100, 0, 0, 0, 0],
             backgroundColor: '#8B0000'
          }, {
             label: 'Extraverted',
-            data: [count_traits[1], 0, 0, 0, 0],
+            data: [(count_traits[1]/user_pts.length)*100, 0, 0, 0, 0],
             backgroundColor: '#FF0000'
          }, {
             label: 'Observant',
-            data: [0, count_traits[2], 0, 0, 0],
+            data: [0, (count_traits[2]/user_pts.length)*100, 0, 0, 0],
             backgroundColor: '#8B4000'
          }, {
             label: 'Intuitive',
-            data: [0, count_traits[3], 0, 0, 0],
+            data: [0, (count_traits[3]/user_pts.length)*100, 0, 0, 0],
             backgroundColor: '#FFA500'
          }, {
             label: 'Thinking',
-            data: [0, 0, count_traits[4], 0, 0],
+            data: [0, 0, (count_traits[4]/user_pts.length)*100, 0, 0],
             backgroundColor: '#FFD700'
          }, {
             label: 'Feeling',
-            data: [0, 0, count_traits[5], 0, 0],
+            data: [0, 0, (count_traits[5]/user_pts.length)*100, 0, 0],
             backgroundColor: '#FFFF00'
          }, {
             label: 'Judging',
-            data: [0, 0, 0, count_traits[6], 0],
+            data: [0, 0, 0, (count_traits[6]/user_pts.length)*100, 0],
             backgroundColor: '#008000'
          }, {
             label: 'Prospecting',
-            data: [0, 0, 0, count_traits[7], 0],
+            data: [0, 0, 0, (count_traits[7]/user_pts.length)*100, 0],
             backgroundColor: '#7CFC00'
          }, {
             label: 'Assertive',
-            data: [0, 0, 0, 0, count_traits[8]],
+            data: [0, 0, 0, 0, (count_traits[8]/user_pts.length)*100],
             backgroundColor: '#00008B'
          }, {
             label: 'Turbulent',
-            data: [0, 0, 0, 0, count_traits[9]],
+            data: [0, 0, 0, 0, (count_traits[9]/user_pts.length)*100],
             backgroundColor: '#0000FF'
          }]
       },

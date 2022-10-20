@@ -71,7 +71,7 @@ var inputField = document.getElementById('chatio__inputField');
 
 var chat_messages = [];
 
-welcome_message = "Welcome to NeXusU's personality test. We'll try our best to make you feel comfortable. If you wish, share your name with us. Otherwise, just press enter :)";
+welcome_message = "Welcome to NeXus U's personality test. This test is based on the Myers-Briggs theory. We'll ask you a few questions. You're expected to answer honestly. All information shared will be kept confidential. The test is continuous; after the question is narrated, you can answer verbally after a few seconds or type in the input box. You can begin by telling us a little about yourself or clicking the send button to start the test.";
 
 function detectURLs(text) {
   var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
